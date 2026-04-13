@@ -48,7 +48,7 @@ pipeline {
                     sh """
                     docker stop cap-container || true
                     docker rm cap-container || true
-                    docker run -d -p 8082:5000 --name cap-container $DOCKER_IMAGE:latest
+                    docker run -d -p 8082:5000 --name cap-container $DOCKER_IMAGE:${BUILD_NUMBER}
                     """
                 }
             }
