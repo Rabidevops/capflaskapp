@@ -42,6 +42,7 @@ def home():
             <div class="box">
                 <h1>Welcome to CAP CLOUD TECH 🚀</h1>
                 <p>DevSecOps | AWS | Real-Time Training</p>
+                <p>Contact - 9676939870 for more details</p>
             </div>
         </div>
     </body>
