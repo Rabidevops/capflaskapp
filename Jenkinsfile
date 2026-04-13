@@ -3,6 +3,7 @@ pipeline {
 
     environment {
         DOCKER_IMAGE = "raveendra137/cap-cloud-app"
+         IMAGE_TAG = "${BUILD_NUMBER}"
     }
 
     stages {
@@ -16,7 +17,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    sh "docker build -t $DOCKER_IMAGE:latest ."
+                    sh "docker build -t $DOCKER_IMAGE:${BUILD_NUMBER} ."
                 }
             }
         }
@@ -36,7 +37,7 @@ pipeline {
         stage('Push Image') {
             steps {
                 script {
-                    sh "docker push $DOCKER_IMAGE:latest"
+                    sh "docker push $DOCKER_IMAGE:${BUILD_NUMBER}"
                 }
             }
         }
