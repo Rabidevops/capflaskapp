@@ -51,6 +51,41 @@ pipeline {
                     docker run -d -p 8082:5000 --name cap-container $DOCKER_IMAGE:${BUILD_NUMBER}
                     """
                 }
+
+
+             post {
+        success {
+            emailext (
+                subject: "✅ SUCCESS: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                body: """
+                <h2>Deployment Successful 🚀</h2>
+                <p><b>Job:</b> ${env.JOB_NAME}</p>
+                <p><b>Build:</b> ${env.BUILD_NUMBER}</p>
+                <p><b>Docker Image:</b> ${IMAGE_NAME}:${IMAGE_TAG}</p>
+                <p><b>Container:</b> ${CONTAINER_NAME}</p>
+                <p><b>Status:</b> Running Successfully</p>
+                <p><a href="${env.BUILD_URL}">View Build Logs</a></p>
+                """,
+                mimeType: 'text/html',
+                to: "yourmail@gmail.com",
+                attachLog: true
+            )
+        }
+
+        failure {
+            emailext (
+                subject: "❌ FAILED: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                body: """
+                <h2>Deployment Failed ❌</h2>
+                <p>Check logs: <a href="${env.BUILD_URL}">${env.BUILD_URL}</a></p>
+                """,
+                mimeType: 'text/html',
+                to: "yourmail@gmail.com",
+                attachLog: true
+            )
+        }
+    }
+}
             }
         }
     }
